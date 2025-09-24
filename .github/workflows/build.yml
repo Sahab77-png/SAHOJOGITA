@@ -8,7 +8,7 @@ on:
 
 jobs:
  build:
-  runs-on: windows-latest
+  runs-on: ubuntu-latest
 
   steps:
    - name: Checkout repository
@@ -34,8 +34,11 @@ jobs:
    - name: Generate Hermes + newArch bundle
      run: node generateBundle.js
 
+   - name: Make gradlew executable
+     run: chmod +x ./gradlew
+
    - name: Build Release APK
-     run: .\gradlew.bat clean assembleRelease
+     run: ./gradlew assembleRelease
 
    - name: Upload APK artifact
      uses: actions/upload-artifact@v3
