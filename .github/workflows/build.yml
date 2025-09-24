@@ -1,0 +1,45 @@
+name: Build Android APK
+  
+on:
+ push:
+  branches: 
+    - main
+ workflow_dispatch:
+
+jobs:
+ build:
+  runs-on: windows-latest
+
+  steps:
+   - name: Checkout repository
+     uses: actions/checkout@v3
+   
+   - name: Setup Node.js
+     uses: actions/setup-node@v3
+     with:
+      node-version: 20
+   
+   - name: Setup Java 
+     uses: actions/setup-java@v4
+     with: 
+       distribution: 'temurin'
+       java-version: 17
+   
+   - name: Setup Android SDK
+     uses: android-actions/setup-android@v3
+
+   - name: Install dependencies
+     run: npm install
+  
+   - name: Generate Hermes + newArch bundle
+     run: node generateBundle.js
+
+   - name: Build Release APK
+     run: .\gradlew.bat clean assembleRelease
+
+   - name: Upload APK artifact
+     uses: actions/upload-artifact@v3
+     with:
+       name: app-release
+       path: android/app/build/outputs/apk/release/app-release.apk
+

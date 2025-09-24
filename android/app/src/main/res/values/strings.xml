@@ -1,0 +1,11 @@
+<resources>
+<string
+name="sahojogita">sahojogita</string>
+<!--AdMob App ID-->
+<string
+name="admob_app_id">ca-app-pub-2606234674913537~7281259727</string>
+<string
+name="facebook_app_id">9635935899772408</string>
+<string
+name="fb_login_protocol_scheme">fb9635935899772408</string>
+</resources>

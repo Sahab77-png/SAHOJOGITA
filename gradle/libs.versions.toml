@@ -1,0 +1,9 @@
+[versions]
+agp ="8.4.0"
+kotlin = "1.9.24"
+react-native = "0.76.6"
+[plugins]
+com-facebook-react = { id ="com.facebook.react", version.ref = "react-native" }
+android-library = { id ="com.android.library", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+download = { id = "de.undercouch.download", version = "5.4.0" }

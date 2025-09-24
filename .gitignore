@@ -1,0 +1,46 @@
+# Ignore Gradle project-specific cache directory(root level)
+.gradle/
+android/.gradle/
+android/build/
+android/app/build/
+# Ignore VS Code
+.vscode
+*.code-workspace
+# Ignore Gradle build output directory(Android level)
+android/build/
+# Ignore node_modules directory(root level)
+node_modules/
+npm-debug.log*
+# Ignore the Firebase Admin SDK service account key 
+android/app/sahojogita-cef4d-firebase-adminsdk-49xxc-15bff36a38.json
+# Ignore the generated Google Services file and Firbase
+android/app/google-services.json
+.firebase
+public/
+# Ignore the Keystore Properties file
+keystore.properties
+# Ignore Environment Variables file , both frontend and backend
+.env
+.env.*
+backend/.env
+# Ignore Gradle + local setting
+android/local.properties
+gradle.properties
+# Ignore Keystore files
+*.keystore
+keystore.properties
+android/debug.keystore
+android/app/release.keystore
+# Bundle
+*.bundle
+index.android.bundle
+# Ignore Logs
+*.log
+# Ignore APK/AAB outputs
+*.apk
+*.aab
+# Ignore System files
+.DS_Store
+Thumbs.db
+# Ignore well-knows security/verification files
+.well-known
