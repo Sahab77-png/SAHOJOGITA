@@ -37,6 +37,18 @@ jobs:
    - name: Make gradlew executable
      run: chmod +x ./gradlew
 
+   - name: Create keystore.properties
+     run: |
+         echo "storeFile=release.keystore"
+         >> android/app/keystore.properties
+         echo "storePassword=${{secrets.KEYSTORE_PASSWORD}}" >> android/app/keystore.properties
+         echo "keyAlias=${{secrets.KEY_ALIAS}}" >> android/app/keystore.properties
+         echo "keyPassword=${{secrets.KEY_PASSWORD}}" >> android/app/keystore.properties
+
+   - name: Decode and setup keystore
+     run: |
+        echo "${{secrets.KEYSTORE_BASE64}}" | base64 --decode > android/app/release.keystore
+
    - name: Build Release APK
      run: ./gradlew assembleRelease
 
