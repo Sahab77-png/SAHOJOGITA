@@ -49,20 +49,16 @@ jobs:
      run: |
       echo "${{secrets.KEYSTORE_BASE64}}" | base64 --decode > android/app/release.keystore
 
-   - name: Debug keystore files
+   - name: Verify keystore setup (short)
      run: |
-       echo "----keystore.properties----"
-        cat android/app/keystore.properties
-       echo "----Check keystore exists----"
-       ls -l android/app/release.keystore ||
-       echo "Keystore file NOT found!"
-       echo "----Current directory----"
-       pwd
-       echo "----List android/app----"
-       ls -l android/app
+       echo "----storeFile line----"
+        grep storeFile android/app/keystore.properties || echo "storeFile missing"
+       echo "----keystore file----"
+       [ -f android/app/release.keystore ]
+       && echo "release.keystore exists" || echo "release.keystore missing"
 
-   - name: Build Release APK (debug)
-     run: ./gradlew assembleRelease --stacktrace --info --debug
+   - name: Build Release APK 
+     run: ./gradlew assembleRelease 
 
    - name: Upload APK artifact
      uses: actions/upload-artifact@v4
