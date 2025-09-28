@@ -39,11 +39,11 @@ jobs:
 
    - name: Create keystore.properties
      run: |
-         echo "storeFile=release.keystore"
-         >> android/app/keystore.properties
-         echo "storePassword=${{secrets.KEYSTORE_PASSWORD}}" >> android/app/keystore.properties
-         echo "keyAlias=${{secrets.KEY_ALIAS}}" >> android/app/keystore.properties
-         echo "keyPassword=${{secrets.KEY_PASSWORD}}" >> android/app/keystore.properties
+         echo "storeFile=android/app/release.keystore"
+         >> keystore.properties
+         echo "storePassword=${{secrets.KEYSTORE_PASSWORD}}" >> keystore.properties
+         echo "keyAlias=${{secrets.KEY_ALIAS}}" >> keystore.properties
+         echo "keyPassword=${{secrets.KEY_PASSWORD}}" >> keystore.properties
 
    - name: Decode and setup keystore
      run: |
