@@ -40,10 +40,10 @@ jobs:
    - name: Create keystore.properties
      run: |
          echo "storeFile=android/app/release.keystore"
-         > keystore.properties
-         echo "storePassword=${{secrets.KEYSTORE_PASSWORD}}" >> keystore.properties
-         echo "keyAlias=${{secrets.KEY_ALIAS}}" >> keystore.properties
-         echo "keyPassword=${{secrets.KEY_PASSWORD}}" >> keystore.properties
+         > $GITHUB_WORKSPACE/keystore.properties
+         echo "storePassword=${{secrets.KEYSTORE_PASSWORD}}" >> $GITHUB_WORKSPACE/keystore.properties
+         echo "keyAlias=${{secrets.KEY_ALIAS}}" >> $GITHUB_WORKSPACE/keystore.properties
+         echo "keyPassword=${{secrets.KEY_PASSWORD}}" >> $GITHUB_WORKSPACE/keystore.properties
 
    - name: Decode and setup keystore
      run: |
