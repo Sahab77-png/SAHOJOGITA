@@ -40,14 +40,14 @@ jobs:
    - name: Create keystore.properties
      run: |
          echo "storeFile=android/app/release.keystore"
-         >> keystore.properties
+         > keystore.properties
          echo "storePassword=${{secrets.KEYSTORE_PASSWORD}}" >> keystore.properties
          echo "keyAlias=${{secrets.KEY_ALIAS}}" >> keystore.properties
          echo "keyPassword=${{secrets.KEY_PASSWORD}}" >> keystore.properties
 
    - name: Decode and setup keystore
      run: |
-      echo "${{secrets.KEYSTORE_BASE64}}" | tr -d '\n' | base64 --decode > android/app/release.keystore
+      echo "${{secrets.KEYSTORE_BASE64}}" | base64 --decode > android/app/release.keystore
 
    - name: Build Release APK
      run: ./gradlew assembleRelease
