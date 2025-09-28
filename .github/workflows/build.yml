@@ -40,10 +40,10 @@ jobs:
    - name: Create keystore.properties
      run: |
          echo "storeFile=android/app/release.keystore"
-         > android/app/keystore.properties
-         echo "storePassword=${{secrets.KEYSTORE_PASSWORD}}" >> android/app/keystore.properties
-         echo "keyAlias=${{secrets.KEY_ALIAS}}" >> android/app/keystore.properties
-         echo "keyPassword=${{secrets.KEY_PASSWORD}}" >> android/app/keystore.properties
+         > keystore.properties
+         echo "storePassword=${{secrets.KEYSTORE_PASSWORD}}" >> keystore.properties
+         echo "keyAlias=${{secrets.KEY_ALIAS}}" >> keystore.properties
+         echo "keyPassword=${{secrets.KEY_PASSWORD}}" >> keystore.properties
 
    - name: Decode and setup keystore
      run: |
@@ -52,11 +52,14 @@ jobs:
    - name: Verify keystore setup (short)
      run: |
        echo "----storeFile line----"
-        grep storeFile android/app/keystore.properties || echo "storeFile missing"
+        grep storeFile keystore.properties || echo "storeFile missing"
        echo "----keystore file----"
-       [ -f android/app/release.keystore ]
-       && echo "release.keystore exists" || echo "release.keystore missing"
-
+       if [ -f android/app/release.keystore ]; then
+       echo "release.keystore exists" 
+       else
+       echo "release.keystore missing"
+         fi
+       
    - name: Build Release APK 
      run: ./gradlew assembleRelease 
 
