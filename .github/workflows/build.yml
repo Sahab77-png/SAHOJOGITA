@@ -37,28 +37,23 @@ jobs:
    - name: Make gradlew executable
      run: chmod +x ./gradlew
 
-   - name: Create keystore.properties
+   - name: Setup keystore
      run: |
-         echo "storeFile=android/app/release.keystore"
-         > $GITHUB_WORKSPACE/keystore.properties
-         echo "storePassword=${{secrets.KEYSTORE_PASSWORD}}" >> $GITHUB_WORKSPACE/keystore.properties
-         echo "keyAlias=${{secrets.KEY_ALIAS}}" >> $GITHUB_WORKSPACE/keystore.properties
-         echo "keyPassword=${{secrets.KEY_PASSWORD}}" >> $GITHUB_WORKSPACE/keystore.properties
+        cd $GITHUB_WORKSPACE
 
-   - name: Decode and setup keystore
-     run: |
-      echo "${{secrets.KEYSTORE_BASE64}}" | base64 --decode > $GITHUB_WORKSPACE/android/app/release.keystore
-       
-   - name: Debug keystore files
-     run: |
-        echo "==== Current working dir ===="
-        pwd
-        echo "==== List root directory ===="
+        mkdir -p android/app
+
+        cat > keystore.properties <<EOL storeFile=android/app/release.keystore
+        storePassword=${{ secrets.KEYSTORE_PASSWORD }}
+        keyAlias=${{ secrets.KEY_ALIAS }}
+        keyPassword=${{ secrets.KEY_PASSWORD }} EOL
+
+        echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > android/app/release.keystore
+
         ls -l
-        echo "==== List android/app directory ===="
         ls -l android/app
-        echo "==== keystore.properties content ===="
-        cat keystore.properties || echo "keystore.properties not found"
+        echo "=== keystore.properties ==="
+        cat keystore.properties
         
    - name: Build Release APK 
      run: ./gradlew assembleRelease 
