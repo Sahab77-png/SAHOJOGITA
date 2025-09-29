@@ -40,13 +40,12 @@ jobs:
    - name: Setup keystore
      run: |
         cd $GITHUB_WORKSPACE
+         mkdir -p android/app
 
-        mkdir -p android/app
-
-        cat > keystore.properties <<EOL storeFile=android/app/release.keystore
-        storePassword=${{ secrets.KEYSTORE_PASSWORD }}
-        keyAlias=${{ secrets.KEY_ALIAS }}
-        keyPassword=${{ secrets.KEY_PASSWORD }} EOL
+        printf "storeFile=android/app/release.keystore\nstorePassword=%s\nkeyAlias=%s\nkeyPassword=%s\n" \
+        "${{ secrets.KEYSTORE_PASSWORD }}" \
+         "${{ secrets.KEY_ALIAS }}" \
+          "${{ secrets.KEY_PASSWORD }}" > keystore.properties 
 
         echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > android/app/release.keystore
 
