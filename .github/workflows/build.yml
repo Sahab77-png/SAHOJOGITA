@@ -47,18 +47,7 @@ jobs:
 
    - name: Decode and setup keystore
      run: |
-      echo "${{secrets.KEYSTORE_BASE64}}" | base64 --decode > android/app/release.keystore
-
-   - name: Verify keystore setup (short)
-     run: |
-       echo "----storeFile line----"
-        grep storeFile keystore.properties || echo "storeFile missing"
-       echo "----keystore file----"
-       if [ -f android/app/release.keystore ]; then
-       echo "release.keystore exists" 
-       else
-       echo "release.keystore missing"
-         fi
+      echo "${{secrets.KEYSTORE_BASE64}}" | base64 --decode > $GITHUB_WORKSPACE/android/app/release.keystore
        
    - name: Build Release APK 
      run: ./gradlew assembleRelease 
