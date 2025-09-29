@@ -49,6 +49,17 @@ jobs:
      run: |
       echo "${{secrets.KEYSTORE_BASE64}}" | base64 --decode > $GITHUB_WORKSPACE/android/app/release.keystore
        
+   - name: Debug keystore files
+     run: |
+        echo "==== Current working dir ===="
+        pwd
+        echo "==== List root directory ===="
+        ls -l
+        echo "==== List android/app directory ===="
+        ls -l android/app
+        echo "==== keystore.properties content ===="
+        cat keystore.properties || echo "keystore.properties not found"
+        
    - name: Build Release APK 
      run: ./gradlew assembleRelease 
 
