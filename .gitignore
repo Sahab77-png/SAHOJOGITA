@@ -25,7 +25,6 @@ keystore.properties
 backend/.env
 # Ignore Gradle + local setting
 android/local.properties
-gradle.properties
 # Ignore Keystore files
 *.keystore
 keystore.properties
