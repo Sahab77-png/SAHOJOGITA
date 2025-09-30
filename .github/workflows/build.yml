@@ -42,12 +42,12 @@ jobs:
         cd $GITHUB_WORKSPACE
          mkdir -p android/app
 
-        printf "storeFile=android/app/release.keystore\nstorePassword=%s\nkeyAlias=%s\nkeyPassword=%s\n" \
+        printf "storeFile=release.keystore\nstorePassword=%s\nkeyAlias=%s\nkeyPassword=%s\n" \
         "${{ secrets.KEYSTORE_PASSWORD }}" \
          "${{ secrets.KEY_ALIAS }}" \
           "${{ secrets.KEY_PASSWORD }}" > keystore.properties 
 
-        echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > android/app/release.keystore
+        echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > release.keystore
 
         ls -l
         ls -l android/app
