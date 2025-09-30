@@ -47,7 +47,7 @@ jobs:
          "${{ secrets.KEY_ALIAS }}" \
           "${{ secrets.KEY_PASSWORD }}" > keystore.properties 
 
-        echo "${{ secrets.REALESE_KEYSTORE_BASE64 }}" | base64 --decode > android/app/release.keystore
+        echo "${{ secrets.REALESE_KEYSTORE_BASE64 }}" | tr -d '\r' | base64 --decode > android/app/release.keystore
 
         ls -l
         ls -l android/app
