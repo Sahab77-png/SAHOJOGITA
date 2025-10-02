@@ -7,11 +7,14 @@ export const messagesEn = [
 "Could value-based education vaccinate society against injustice ?",
 "Should a child's future depend on their parents' income ?",
 "What happens to a society when manupulation replaces education ?",
+"What is ego ? couldn't profoundly promoting Sahojogita be a powerful ego for everyone",
 "Health is not luxury - it is lifeline. Shouldn't it be free for everyone ?",
 "If we can cure diseases, why can't we cure inequality in health care ?",
+"Why do we speak endlessly beyond our knowledge, which only breeds falsehood ? why do we defend ourselves with more words when we are in wrong, instead of embracing the silence that reflects true humanity ? And why doesn't the community help us become pure and just individuals ?",
 "Corruption is a disease - why don't we treat it like one ?",
 "Who stops corruption or anti-social activities if citizens stay silent ?",
 "If mental health is strenght, why do we ignore it ?",
+"Can we ever dream of a dignified world for ourselves, communities, nations, and global relations live without Sahojogita",
 "can a society be considered truly developed if its people are denied access to mental and physical healthcare ?",
 "Would you accept a world where medicine is a privilege, not a right ?",
 "If health is dignity, why do we deny it to so many ?",
@@ -22,6 +25,7 @@ export const messagesEn = [
 "Could a guaranteed job end poverty for good ?",
 "Can we have true democracy without critical thinking ?",
 "Democracy dies where minorities are silenced. Are you listening ?",
+"Is reading, hearing or watching a novel, video, or audio without considering the learner's age potentially harmfull, and does it require proper supervision to develop age-appropriate critical thinking and innovation ? Is this properly considered and guided in our families, societies and schooling system ?",
 "Should political power exist without accountability ?",
 "Can a nation be strong if it exploits weakest ?",
 "Justice is blind - but is it also deaf ?",
@@ -49,7 +53,7 @@ export const messagesEn = [
 "Addiction is a disease caused first by selective social interaction, second by affection or attraction, third by harmful practices that turn into habits, fourth by biological factors, and fifth by lack of Sahojogita. Do you agree ?",
 "To overcome addiction, one should first shift selective attraction or affection into healthy collective social interaction, second embrace Sahojogita, and third seek treatment to restore hormonal and chemical balance. Do you agree ?",
 "If our teachers and doctors stand for Sahojogita, could they inspire a better, brighter world",
-"If our most dignified educators, medical professionals, scientists, and even dignified religious scholars-those entrusted with truth and progress-championed evidence-based and adaptive thinking over ancient policy dominance, wouldn't society evolve toward greater peace, happiness, and progress through collective innovation ?",
+"If our most dignified educators, medical professionals, scientists, and even our dignified religious scholars-those entrusted with truth and progress-championed evidence-based and adaptive thinking over ancient policy dominance, wouldn't society evolve toward greater peace, happiness, and progress through collective innovation ?",
 "When fear, distrust, or domination threaten the safety and security of individuals, communities, or nations, could Sahojogita a system to secure all ?",
 "Terrorism exists or re-emerges repeatedly due to outdated ideology,forced occupation or colonialism and a lack of Sahojogita. shouldn't we unite against forced occupation and colonialism to promote Sahojogita ?",
 "Who should be considered terrorists: those who resist forced occupation or colonialism, those who commit violence against civilians motivated by outdated ideology, those who use violence against innocent civilians in the name of fighting terrorism or as a tactic to undermind Sahojogita for vested interests-whether they are state or non-state actors- or those who carry out forced occupation or colonialism ?",
@@ -62,6 +66,7 @@ export const messagesEn = [
 "All entertainment is allowed in this app as long as it maintains human dignity.Do you support the app principles ?",
 "Should human sexual behavior be kept private in order to protect human dignity on this app ?",
 "What is true security - mutual trust or domination ? Can trust and Sahojogita create lasting security, while domination only breeds fear and conflict ? Do powerful nations choose the first path, or the second- and by choosing the second, do they gain lasting honor or only deepen hatred ? And who should be called truly powerful leaders: those who deepen conflict, or those who can transform conflict into mutual trust and Sahojogita ?",
-"This app, Sahojogita, is dedicated to all those who uphold justice, dignity, discipline, and compassion. it honors individuals who stand with victims of injustice, or devote their lives to supporting victims of injustice and it also honor the leaders those who transform conflict into mutual trust and Sahojogita, or those who sacrificed for this to building a world rooted in dignity, fairness, and solidarity. Do you support the app ?"
+"This app, Sahojogita, is dedicated to all those who uphold justice, dignity, discipline, and compassion. it honors individuals who stand with victims of injustice, or devote their lives to supporting victims of injustice and it also honor the leaders those who transform conflict into mutual trust and Sahojogita, or those who sacrificed for this to building a world rooted in dignity, fairness, and solidarity. Do you support the app ?",
+"As the author of Sahojogita myself: I was born into a farmer's family with a dream to be a scientist, but during adolescence,I struggled with a form of addiction,and by the circumstances at nineteen,my life was filled with darkness,loneliness,and the absence of Sahojogita-testing me deeply throughout my life.Yet,a small light of hope to chenge for the better never went out.I am still alive,still trying,still believing. My journey has shown me that Sahojogita is not just an idea-it is a life-giving force that helps people rise with dignity. I aspire to spread Sahojogita so that no one walks through darkness alone, and every life can shine with hope and collaboration"
 ];
 

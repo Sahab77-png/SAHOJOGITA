@@ -42,7 +42,7 @@ jobs:
         cd $GITHUB_WORKSPACE
          mkdir -p android/app
 
-        printf "storeFile=keystore.properties\nstorePassword=%s\nkeyAlias=%s\nkeyPassword=%s" \
+        printf "storeFile=android/app/release.keystore\nstorePassword=%s\nkeyAlias=%s\nkeyPassword=%s" \
            "${{ secrets.KEYSTORE_PASSWORD }}" \
            "${{ secrets.KEY_ALIAS }}" \
            "${{ secrets.KEY_PASSWORD }}" > keystore.properties
