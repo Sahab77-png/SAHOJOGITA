@@ -48,14 +48,12 @@ jobs:
            "${{ secrets.RELEASE_KEY_PASSWORD }}" > keystore.properties
 
         echo "${{ secrets.REALESE_KEYSTORE_BASE64 }}" | base64 --decode > android/app/release.keystore
-
+                     sha256sum android/app/release.keystore
+                     
         ls -l
         ls -l android/app
         echo "=== keystore.properties ==="
         cat keystore.properties
-
-   - name: Verify keystore integrity
-     run: sha256sum android/app/release.keystore
 
    - name: Setup google-services.json
      run: |
