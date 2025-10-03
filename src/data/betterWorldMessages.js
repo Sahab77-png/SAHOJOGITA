@@ -21,7 +21,7 @@ export const messagesEn = [
 "When every hand has work, every heart has peace. So why are hands still empty ?",
 "Should work be a privilege or a guarantee ?",
 "What does unemployment cost us - money or humanity ?",
-"Do we enjoy or feel sadness only because situations compel us ? if hardship not tested with patience, how can human brain develop dynamically ? if sadness test us, how can we trully fell hapiness ? Yet, could we create a Sahojogita-base environment through human activities, where hapiness become long-lasting by sharing with each other, and sadness is reduced for everyone by sharing with each other ? And are Songs and Arts the most beautiful things that give us hope and encourage us to live ?",
+"Do we enjoy or feel sadness only because situations compel us ? if hardship not tested with patience, how can human brain develop dynamically ? if sadness test us, how can we trully fell hapiness ? Yet, could we create a Sahojogita-base environment through human activities, where hapiness becomes long-lasting by sharing with each other, and sadness is reduced for everyone by sharing with each other ? And are Songs and Arts the most beautiful things that give us hope and encourage us to live ?",
 "If work brings dignity, why isn't it for everyone ?",
 "Could a guaranteed job end poverty for good ?",
 "Can we have true democracy without critical thinking ?",
