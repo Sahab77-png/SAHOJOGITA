@@ -45,12 +45,20 @@ jobs:
         echo "keyPassword=$RELEASE_KEY_PASSWORD" >> keystore.properties
 
    - name: Decode keystore
-     shell: bash
      run: |
+        echo "Decoding Base64 keystore..."
         mkdir -p $GITHUB_WORKSPACE/android/app
         echo "$REALESE_KEYSTORE_BASE64" | base64 --decode > $GITHUB_WORKSPACE/android/app/release.keystore
+
+        echo "Checking keystore file info..."
         ls -lh $GITHUB_WORKSPACE/android/app/release.keystore
         file $GITHUB_WORKSPACE/android/app/release.keystore
+
+        echo "Verifying keystore integrity..."
+        keytool -list -v -keystore
+        $GITHUB_WORKSPACE/android/app/release.keystore \
+        -storepass "$RELEASE_KEYSTORE_PASSWORD" || "keytool failed to read keystore"
+     shell: bash
 
    - name: Setup google-services.json
      run: |
