@@ -50,8 +50,7 @@ jobs:
         mkdir -p $GITHUB_WORKSPACE/android/app
         echo "$RELEASE_KEYSTORE_BASE64" | base64 --decode > $GITHUB_WORKSPACE/android/app/release.keystore
         ls -lh $GITHUB_WORKSPACE/android/app/release.keystore
-        keytool -list -v -keystore
-        $GITHUB_WORKSPACE/android/app/release.keystore 
+        keytool -list -v -keystore $GITHUB_WORKSPACE/android/app/release.keystore 
         -storepass "$RELEASE_KEYSTORE_PASSWORD" || "keytool check failed"
      shell: bash
 
