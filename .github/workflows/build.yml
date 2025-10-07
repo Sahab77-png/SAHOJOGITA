@@ -59,7 +59,7 @@ jobs:
        echo "Cheking keystore file details..."
        ls -lh android/app/release.keystore
        file android/app/release.keystore || true
-       keytool -list -v -keystore android/app/release/keystore -storepass "$RELEASE_KEYSTORE_PASSWORD" ||
+       keytool -list -v -keystore android/app/release.keystore -storepass "$RELEASE_KEYSTORE_PASSWORD" ||
        "keytool failed to read keystore."
 
    - name: Setup google-services.json
