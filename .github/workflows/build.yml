@@ -42,7 +42,7 @@ jobs:
         cd $GITHUB_WORKSPACE
          mkdir -p android/app
 
-        echo "storeFile=release.keystore" >> keystore.properties
+        echo "storeFile=android/app/release.keystore" >> keystore.properties
         echo "storePassword=$RELEASE_KEYSTORE_PASSWORD" >> keystore.properties
         echo "keyAlias=$RELEASE_KEY_ALIAS" >> keystore.properties
         echo "keyPassword=$RELEASE_KEY_PASSWORD" >> keystore.properties
