@@ -48,13 +48,11 @@ jobs:
      run: |
         echo "Decoding Base64 keystore..."
         mkdir -p $GITHUB_WORKSPACE/android/app
-        echo "$REALESE_KEYSTORE_BASE64" | base64 --decode > $GITHUB_WORKSPACE/android/app/release.keystore
-        echo "Checking keystore file info..."
+        echo "$RELEASE_KEYSTORE_BASE64" | base64 --decode > $GITHUB_WORKSPACE/android/app/release.keystore
         ls -lh $GITHUB_WORKSPACE/android/app/release.keystore
-        echo "Verifying keystore integrity..."
         keytool -list -v -keystore
-        $GITHUB_WORKSPACE/android/app/release.keystore \
-        -storepass "$RELEASE_KEYSTORE_PASSWORD" || "keytool verification failed"
+        $GITHUB_WORKSPACE/android/app/release.keystore 
+        -storepass "$RELEASE_KEYSTORE_PASSWORD" || "keytool check failed"
      shell: bash
 
    - name: Setup google-services.json
