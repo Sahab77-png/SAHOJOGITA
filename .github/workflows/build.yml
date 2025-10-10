@@ -48,7 +48,7 @@ jobs:
      run: |
         echo "Decoding Base64 keystore..."
         mkdir -p $GITHUB_WORKSPACE/android/app
-        echo "$RELEASE_KEYSTORE_BASE64" | base64 -di > $GITHUB_WORKSPACE/android/app/release.keystore
+        echo "${{ secrets.RELEASE_KEYSTORE_BASE64 }}" | base64 -di > $GITHUB_WORKSPACE/android/app/release.keystore
         ls -lh $GITHUB_WORKSPACE/android/app/release.keystore
         keytool -list -v -keystore $GITHUB_WORKSPACE/android/app/release.keystore 
         -storepass "$RELEASE_KEYSTORE_PASSWORD" || "keytool check failed"
