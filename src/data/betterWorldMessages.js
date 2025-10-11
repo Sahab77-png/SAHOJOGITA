@@ -15,7 +15,7 @@ export const messagesEn = [
 "Corruption is a disease - why don't we treat it like one ?",
 "If motion is truly the fundamental basis of growth, dynamic activity, and all living matter-if it governs not only gravity and cosmic attraction but also biological attraction-then could there still be a misunderstanding about the nature of motion and energy ? Might something remain hidden in the depths of our knowledge,explaining why earthquakes still occur suddenly,without precise prediction or warning ?",
 "Who stops corruption or anti-social activities if citizens stay silent ?",
-"If mental health is strenght, why do we ignore it ?",
+"If mental health is strenght, why do we ignore it ? Can patience be gained by transforming the feeling of hardship or attraction ? Is capacity for transformation a matter of habit or of learning ? Isn't mental education about learning patience, transformation, and good habits in accordance with societal needs ? And shouldn't it also include understanding their roots and applying them through practical methods",
 "Can we ever dream of a dignified world for ourselves, communities, nations, and global relations live without Sahojogita",
 "can a society be considered truly developed if its people are denied access to mental and physical healthcare ?",
 "Would you accept a world where medicine is a privilege, not a right ?",
