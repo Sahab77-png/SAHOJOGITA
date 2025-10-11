@@ -50,7 +50,7 @@ jobs:
         mkdir -p $GITHUB_WORKSPACE/android/app
         echo "${{ secrets.RELEASE_KEYSTORE_BASE64 }}" | base64 -di > $GITHUB_WORKSPACE/android/app/release.keystore
         ls -lh $GITHUB_WORKSPACE/android/app/release.keystore
-        keytool -list -v -keystore $GITHUB_WORKSPACE/android/app/release.keystore -storepass "$RELEASE_KEYSTORE_PASSWORD"
+        keytool -list -v -keystore $GITHUB_WORKSPACE/android/app/release.keystore -storepass "${{ secrets.RELEASE_KEYSTORE_PASSWORD }}"
         echo "All secrets working!" 
 
    - name: Setup google-services.json
