@@ -1,114 +1,55 @@
 image: node:20
 
+stages:
+  - prepare
+  - build
+
 variables:
-  GRADLE_OPTS: "-Dorg.gradle.daemon=false"
-  ANDROID_COMPILE_SDK: "34"
-  ANDROID_BUILD_TOOLS: "34.0.0"
-  ANDROID_SDK_TOOLS: "9477386"
-  ANDROID_NDK_VERSION: "26.1.10909125"
+       JAVA_HOME: "/user/lib/jvm/java-17-openjdk-amd64"
+       ANDROID_HOME: "/sdk"
+       GRADLE_USER_HOME: "$CI_PROJECT_DIR/.gradle"
 
 before_script:
-  - apt-get update -qq
-  - apt-get install -y openjdk-17-jdk wget unzip
-  - export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
-  - export PATH=$JAVA_HOME/bin:$PATH
-  - java -version
-  - node -v
-  - chmod +x ./gradlew
+      - apt-get update -qq
+      - apt-get install -y openjdk-17-jdk wget unzip git nodejs npm
+      - npm install 
+      - mkdir -p $ANDROID_HOME/cmdline-tools
+      - cd $ANDROID_HOME/cmdline-tools
+      - wget https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O cmdline-tools.zip
+      - unzip cmdline-tools.zip -d latest
+      - yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --sdk_root=$ANDROID_HOME --licenses
+      - yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --sdk_root=$ANDROID_HOME "platform-tools" "build-tools;34.0.0" "platforms;android-34"
+    
+      - cd $CI_PROJECT_DIR
+      - npm run build
 
-stages:
-  - dependencies
-  - setup_files
-  - build_bundle
-  - build_apk
-
-install_dependencies:
-  stage: dependencies
+prepare:
+  stage: prepare
   script:
-   - yarn install --frozen-lockfile
-   - npx react-native config
-  cache:
-    paths:
-     - node_modules/
-    key: ${CI_COMMIT_REF_SLUG}
-  artifacts:
-    paths:
-     - node_modules/
+        - echo "Decoding google-services.json..."
+        - echo "GOOGLE_SERVICES_JSON_BASE64" | base64 -d > android/app/google-services.json
 
-  setup_android:
-     stage: dependencies
-     script:
-       - wget -q https://dl.google.com/android/repository/commandlinetools-linux-${ANDROID_SDK_TOOLS}_latest.zip -0 android-sdk.zip
-       - unzip -q android-sdk.zip -d /usr/local/android-sdk
-       - export ANDROID_SDK_ROOT=/usr/local/android-sdk
-       - export PATH=$ANDROID_SDK_ROOT/cmdline-tools/bin:$PATH
-       - yes | sdkmanager --sdk_root=${ANDROID_SDK_ROOT} "platforms;android-${ANDROID_COMPILE_SDK}" "build-tools;${ANDROID_BUILD_TOOLS}" "ndk;${ANDROID_NDK_VERSION}"
-       - export PATH=$ANDROID_SDK_ROOT/platform-tools:$PATH
-     artifacts:
-        paths:
-        - /user/local/android-sdk/
-
-  setup_config_files:
-    stage: setup_files
-    script:
-        - echo "$RELEASE_KEYSTORE_BASE64" | -d > android/app/release.keystore
+        - echo "Decoding release.keystore..."
+        - mkdir -p android/app
+        - echo "$RELEASE_KEYSTORE_BASE64" | -di > android/app/release.keystore
         - echo "storeFile=release.keystore" > keystore.properties
         - echo "storePassword=$RELEASE_KEYSTORE_PASSWORD" >> keystore.properties
         - echo "keyAlias=$RELEASE_KEY_ALIAS" >> keystore.properties
         - echo "keyPassword=$RELEASE_KEY_PASSWORD" >> keystore.properties
-        - echo "keystore created"
+        
+        - keytool -list -v -keystore android/app/release.keystore -storepass "$RELEASE_KEYSTORE_PASSWORD"
 
-        - echo "$GOOGLE_SERVICES_JSON_BASE64" | base64 -d > android/app/google-services.json
-        - echo "google-services.json created"
-
-        - ls -la android/app/release.keystore
-        - ls -la android/app/google-services.json
-        - file android/app/google-services.json
-    dependencies:
-        - install_dependencies
-    artifacts:
-       paths:
-        - android/app/release.keystore
-        - android/app/google-services.json
-       expire_in: 1 hour
-
-  generate_bundle:
-      stage: build_bundle
-      script:
+  build_apk:
+  stage: build
+  script:
          - node generateBundle.js
-         - ls -la android/app/build/generated/assets/
-      dependencies:
-         - install_dependencies
-         - setup_config_files
-      artifacts:
-         paths:
-          - android/app/build/generated/
-         expire_in: 1 hour
+         - ./gradlew clean
+         - ./gradlew assembleRelease
 
-      build_apk:
-        stage: build_apk
-        script:
-           - export ANDROID_SDK_ROOT=/usr/local/android-sdk
-           - export PATH=$ANDROID_SDK_ROOT/cmdline-tools/bin:$ANDROID_SDK_ROOT/platform-tools:$PATH
-
-           - ls -la android/app/release.keystore
-           - ls -la android/app/google-services.jsom
-           - ls -la android/app/build/generated/assets/
-
-           - ./gradlew clean
-           - ./gradlew :app:assembleRelease --no-daemon --max-workers=2
-
-           - ls -la android/app/build/outputs/apk/release/
-           - file android/app/build/outputs/apk/release/app-release.apk
-
-        dependencies:
-           - setup_android
-           - generate_bundle
-           - setup_config_files
-        artifacts:
-           paths:
-             - android/app/build/outputs/apk/release/app-release.apk
-           expire_in: 1 week
-           only:
-             - main
+  artifacts:
+      paths:
+         - android/app/build/outputs/apk/release/app-release.apk
+  expire_in: 1 week
+  only:
+        - main
 
