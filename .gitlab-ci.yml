@@ -1,0 +1,55 @@
+image: node:20
+
+stages:
+  - prepare
+  - build
+
+variables:
+       JAVA_HOME: "/user/lib/jvm/java-17-openjdk-amd64"
+       ANDROID_HOME: "/sdk"
+       GRADLE_USER_HOME: "$CI_PROJECT_DIR/.gradle"
+
+before_script:
+      - apt-get update -qq
+      - apt-get install -y openjdk-17-jdk wget unzip git nodejs npm
+      - npm install 
+      - mkdir -p $ANDROID_HOME/cmdline-tools
+      - cd $ANDROID_HOME/cmdline-tools
+      - wget https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O cmdline-tools.zip
+      - unzip cmdline-tools.zip -d latest
+      - yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --sdk_root=$ANDROID_HOME --licenses
+      - yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --sdk_root=$ANDROID_HOME "platform-tools" "build-tools;34.0.0" "platforms;android-34"
+    
+      - cd $CI_PROJECT_DIR
+      - npm run build
+
+prepare:
+  stage: prepare
+  script:
+        - echo "Decoding google-services.json..."
+        - echo "GOOGLE_SERVICES_JSON_BASE64" | base64 -d > android/app/google-services.json
+
+        - echo "Decoding release.keystore..."
+        - mkdir -p android/app
+        - echo "$RELEASE_KEYSTORE_BASE64" | -di > android/app/release.keystore
+        - echo "storeFile=release.keystore" > keystore.properties
+        - echo "storePassword=$RELEASE_KEYSTORE_PASSWORD" >> keystore.properties
+        - echo "keyAlias=$RELEASE_KEY_ALIAS" >> keystore.properties
+        - echo "keyPassword=$RELEASE_KEY_PASSWORD" >> keystore.properties
+        
+        - keytool -list -v -keystore android/app/release.keystore -storepass "$RELEASE_KEYSTORE_PASSWORD"
+
+  build_apk:
+  stage: build
+  script:
+         - node generateBundle.js
+         - ./gradlew clean
+         - ./gradlew assembleRelease
+
+  artifacts:
+      paths:
+         - android/app/build/outputs/apk/release/app-release.apk
+  expire_in: 1 week
+  only:
+        - main
+
