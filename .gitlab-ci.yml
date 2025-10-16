@@ -5,20 +5,26 @@ stages:
   - build
 
 variables:
-       JAVA_HOME: "/user/lib/jvm/java-17-openjdk-amd64"
+       JAVA_HOME: "/usr/lib/jvm/java-17-openjdk-amd64"
        ANDROID_HOME: "/sdk"
+       ANDROID_SDK_ROOT: "/sdk"
        GRADLE_USER_HOME: "$CI_PROJECT_DIR/.gradle"
+       PATH: "$JAVA_HOME/bin:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH"
 
 before_script:
       - apt-get update -qq
       - apt-get install -y openjdk-17-jdk wget unzip git nodejs npm
+      - export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+      - export PATH=$JAVA_HOME/bin:$PATH
       - npm install 
-      - mkdir -p $ANDROID_HOME/cmdline-tools
-      - cd $ANDROID_HOME/cmdline-tools
-      - wget https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O cmdline-tools.zip
-      - unzip cmdline-tools.zip -d latest
-      - yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --sdk_root=$ANDROID_HOME --licenses
-      - yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --sdk_root=$ANDROID_HOME "platform-tools" "build-tools;34.0.0" "platforms;android-34"
+      - mkdir -p /sdk/cmdline-tools
+      - cd /sdk/cmdline-tools
+      - wget https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O commandlinetools.zip
+      - unzip -o commandlinetools.zip 
+      - mkdir -p /sdk/cmdline-tools/latest
+      - mv cmdline-tools/* /sdk/cmdline-tools/latest/ || true
+      - yes | /sdk/cmdline-tools/latest/bin/sdkmanager --sdk_root=/sdk --licenses
+      - yes | /sdk/cmdline-tools/latest/bin/sdkmanager --sdk_root=/sdk "platform-tools" "build-tools;34.0.0" "platforms;android-34"
     
       - cd $CI_PROJECT_DIR
       - npm run build
