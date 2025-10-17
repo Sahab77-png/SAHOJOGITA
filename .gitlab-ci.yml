@@ -1,17 +1,17 @@
-image: node:20
+ image: node:20
 
-stages:
+ stages:
   - prepare
   - build
 
-variables:
+ variables:
        JAVA_HOME: "/usr/lib/jvm/java-17-openjdk-amd64"
        ANDROID_HOME: "/sdk"
        ANDROID_SDK_ROOT: "/sdk"
        GRADLE_USER_HOME: "$CI_PROJECT_DIR/.gradle"
        PATH: "$JAVA_HOME/bin:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH"
 
-before_script:
+ before_script:
       - apt-get update -qq
       - apt-get install -y openjdk-17-jdk wget unzip git nodejs npm
       - export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
@@ -28,21 +28,19 @@ before_script:
       - cd $CI_PROJECT_DIR
       - npm run build
 
-prepare:
+ prepare:
   stage: prepare
   script:
         - echo "Environment prepared successfully"
         - echo "Decoding google-services.json..."
         - echo "GOOGLE_SERVICES_JSON_BASE64" | base64 -d > android/app/google-services.json
-
         - echo "Decoding release.keystore..."
         - mkdir -p android/app
-        - echo "$RELEASE_KEYSTORE_BASE64" | -d > android/app/release.keystore
+        - echo "$RELEASE_KEYSTORE_BASE64" | base64 -d > android/app/release.keystore
         - echo "storeFile=release.keystore" > keystore.properties
         - echo "storePassword=$RELEASE_KEYSTORE_PASSWORD" >> keystore.properties
         - echo "keyAlias=$RELEASE_KEY_ALIAS" >> keystore.properties
         - echo "keyPassword=$RELEASE_KEY_PASSWORD" >> keystore.properties
-        
         - keytool -list -v -keystore android/app/release.keystore -storepass "$RELEASE_KEYSTORE_PASSWORD"
 
   build_apk:
@@ -55,7 +53,7 @@ prepare:
          - ./gradlew assembleRelease
 
   artifacts:
-      paths:
+  paths: 
          - android/app/build/outputs/apk/release/app-release.apk
   expire_in: 1 week
   only:
