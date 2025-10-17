@@ -26,7 +26,6 @@
       - yes | /sdk/cmdline-tools/latest/bin/sdkmanager --sdk_root=/sdk --licenses
       - yes | /sdk/cmdline-tools/latest/bin/sdkmanager --sdk_root=/sdk "platform-tools" "build-tools;34.0.0" "platforms;android-34"
       - cd $CI_PROJECT_DIR
-      - npm run build
 
  prepare:
   stage: prepare
@@ -37,7 +36,7 @@
         - echo "Decoding release.keystore..."
         - mkdir -p android/app
         - echo "$RELEASE_KEYSTORE_BASE64" | base64 -d > android/app/release.keystore
-        - echo "storeFile=release.keystore" > keystore.properties
+        - echo "storeFile=android/app/release.keystore" > keystore.properties
         - echo "storePassword=$RELEASE_KEYSTORE_PASSWORD" >> keystore.properties
         - echo "keyAlias=$RELEASE_KEY_ALIAS" >> keystore.properties
         - echo "keyPassword=$RELEASE_KEY_PASSWORD" >> keystore.properties
