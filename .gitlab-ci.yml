@@ -1,4 +1,4 @@
- image: node:20-bullseye
+ image:ubantu: 22.04
 
  stages:
   - prepare
@@ -13,10 +13,14 @@
 
  before_script:
       - apt-get update -qq
-      - apt-get install -y openjdk-17-jdk wget unzip git nodejs npm
+      - apt-get install -y openjdk-17-jdk wget unzip git curl
+      - curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
+      - apt-get install -y nodejs
+      - node -v
+      - npm -v
+      - npm install
       - export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
       - export PATH=$JAVA_HOME/bin:$PATH
-      - npm install 
       - mkdir -p /sdk/cmdline-tools
       - cd /sdk/cmdline-tools
       - wget https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O commandlinetools.zip
