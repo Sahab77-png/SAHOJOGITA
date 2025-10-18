@@ -1,4 +1,4 @@
- image:ubantu: 22.04
+ image: ubantu: 22.04
 
  stages:
   - prepare
